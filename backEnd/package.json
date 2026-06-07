@@ -1,0 +1,16 @@
+{
+  "name": "setup-try2-back",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ai": "^6.0.197",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.2"
+  },
+  "type": "module"
+}
