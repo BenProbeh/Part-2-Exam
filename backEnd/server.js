@@ -7,23 +7,47 @@ import { createGateway, generateText } from 'ai';
 const app = express();
 const port = process.env.PORT || 3000;
 
-const allowedOrigins = [
-    'http://localhost:5173',
-    process.env.CLIENT_URL,
-].filter(Boolean);
+function normalizeOrigin(origin) {
+    return origin?.replace(/\/$/, '') ?? '';
+}
 
-app.use(express.json());
-app.use(cors({
+function isAllowedOrigin(origin) {
+    if (!origin) return true;
+
+    const normalized = normalizeOrigin(origin);
+
+    const localOrigins = [
+        'http://localhost:5173',
+        'http://127.0.0.1:5173',
+    ];
+
+    if (localOrigins.includes(normalized)) return true;
+
+    const clientUrl = normalizeOrigin(process.env.CLIENT_URL);
+    if (clientUrl && normalized === clientUrl) return true;
+
+  
+    if (/^https:\/\/[\w.-]+\.vercel\.app$/i.test(normalized)) return true;
+
+    return false;
+}
+
+const corsOptions = {
     origin(origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
+        if (isAllowedOrigin(origin)) {
+            callback(null, origin || true);
             return;
         }
+        console.warn('CORS blocked origin:', origin);
         callback(null, false);
     },
     methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type'],
-}));
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
+app.use(express.json());
 
 const gateway = createGateway({
     apiKey: process.env.AI_GATEWAY_API_KEY,
