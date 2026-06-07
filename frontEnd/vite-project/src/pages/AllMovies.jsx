@@ -34,8 +34,8 @@ function AllMovies() {
 
   return (
     <div>
-      <div className="mb-10">
-        <h1 className="page-title text-4xl font-bold tracking-tight">All Movies</h1>
+      <div className="mb-6 sm:mb-10">
+        <h1 className="page-title text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">All Movies</h1>
         <p className="page-subtitle mt-2 text-sm">
           {movies.length} {movies.length === 1 ? 'movie' : 'movies'} in your watchlist
         </p>
@@ -48,7 +48,7 @@ function AllMovies() {
       {movies.length === 0 ? (
         <p className="text-zinc-500">No movies in your watchlist yet.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {movies.map(movie => (
             <MovieCard key={movie._id} movie={movie} onDelete={handleDelete} />
           ))}

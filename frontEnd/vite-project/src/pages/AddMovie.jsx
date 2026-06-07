@@ -98,12 +98,12 @@ function AddMovie() {
 
   return (
     <div>
-      <div className="mb-10">
-        <h1 className="page-title text-4xl font-bold tracking-tight">Add New Movie</h1>
+      <div className="mb-6 sm:mb-10">
+        <h1 className="page-title text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">Add New Movie</h1>
         <p className="page-subtitle mt-2 text-sm">Fill in the details to add a movie to your watchlist.</p>
       </div>
 
-      <div className="storm-card max-w-xl rounded-2xl p-8">
+      <div className="storm-card w-full max-w-xl rounded-2xl p-4 sm:p-6 lg:p-8">
         {errors.general && (
           <p className="storm-error mb-4 rounded-xl px-4 py-3 text-sm">{errors.general}</p>
         )}
@@ -120,7 +120,7 @@ function AddMovie() {
               onChange={e => setTitle(e.target.value)}
               placeholder="e.g. The Matrix"
               maxLength={20}
-              className={`storm-input w-full rounded-xl px-4 py-3 text-sm ${
+              className={`storm-input w-full rounded-xl px-4 py-3.5 text-base sm:text-sm ${
                 errors.title ? 'storm-input-error' : ''
               }`}
             />
@@ -135,7 +135,7 @@ function AddMovie() {
               id="genre"
               value={genre}
               onChange={e => setGenre(e.target.value)}
-              className={`storm-input w-full rounded-xl px-4 py-3 text-sm ${
+              className={`storm-input w-full rounded-xl px-4 py-3.5 text-base sm:text-sm ${
                 errors.genre ? 'storm-input-error' : ''
               }`}
             >
@@ -158,27 +158,34 @@ function AddMovie() {
               placeholder="Brief summary of the movie..."
               rows={4}
               maxLength={200}
-              className={`storm-input w-full resize-none rounded-xl px-4 py-3 text-sm ${
+              className={`storm-input w-full resize-none rounded-xl px-4 py-3.5 text-base sm:text-sm ${
                 errors.description ? 'storm-input-error' : ''
               }`}
             />
             {errors.description && <p className="mt-1.5 text-sm text-red-400">{errors.description}</p>}
           </div>
 
-          <div className="flex gap-3 pt-2">
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row">
             <button
               type="button"
               onClick={handleGenerate}
               disabled={isGenerating}
-              className="glow-btn glow-btn-ai flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold disabled:opacity-50"
+              className="glow-btn glow-btn-ai flex min-h-[3rem] flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-semibold disabled:opacity-50"
             >
               <SparkleIcon />
-              {isGenerating ? 'Generating...' : 'Generate Description With AI'}
+              <span className="text-center">
+                {isGenerating ? 'Generating...' : (
+                  <>
+                    <span className="sm:hidden">Generate with AI</span>
+                    <span className="hidden sm:inline">Generate Description With AI</span>
+                  </>
+                )}
+              </span>
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="glow-btn glow-btn-primary flex flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold disabled:opacity-50"
+              className="glow-btn glow-btn-primary flex min-h-[3rem] flex-1 items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-sm font-semibold disabled:opacity-50"
             >
               <PlusIcon />
               {isSubmitting ? 'Adding...' : 'Add Movie'}

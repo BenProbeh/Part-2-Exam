@@ -52,12 +52,12 @@ function SearchMovies() {
 
   return (
     <div>
-      <div className="mb-10">
-        <h1 className="page-title text-4xl font-bold tracking-tight">Search Movie</h1>
+      <div className="mb-6 sm:mb-10">
+        <h1 className="page-title text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">Search Movie</h1>
         <p className="page-subtitle mt-2 text-sm">Search by movie title.</p>
       </div>
 
-      <div className="relative mb-6 max-w-xl">
+      <div className="relative mb-6 w-full max-w-xl">
         <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
           <SearchIcon />
         </div>
@@ -66,12 +66,12 @@ function SearchMovies() {
           value={query}
           onChange={e => setQuery(e.target.value)}
           placeholder="Search movies..."
-          className="storm-input w-full rounded-xl py-3 pl-12 pr-4 text-sm"
+          className="storm-input w-full rounded-xl py-3.5 pl-12 pr-4 text-base sm:text-sm"
         />
       </div>
 
       {query.trim() && (
-        <p className="page-subtitle mb-6 text-sm">
+        <p className="page-subtitle mb-6 break-words text-sm">
           {results.length} {results.length === 1 ? 'result' : 'results'} for &apos;{query.trim()}&apos;
         </p>
       )}
@@ -83,7 +83,7 @@ function SearchMovies() {
       {query.trim() && results.length === 0 && !error ? (
         <p className="text-zinc-500">No movies found.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {results.map(movie => (
             <MovieCard key={movie._id} movie={movie} onDelete={handleDelete} />
           ))}
